@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import User from '../models/User';
+import MailModel from '../models/Mail';
 
 import Mail from '../../services/Mail';
 
@@ -45,6 +46,13 @@ class UserController {
       to: `${name} <${email}>`,
       subject: 'Bem vindo - Milvus',
       text: `${name}, você foi cadastrado com sucesso!`,
+    });
+
+    await MailModel.create({
+      user_id: id,
+      user_name: name,
+      mail_type: 'Registry Mail',
+      send_status: true,
     });
 
     return res.json({ id, name, email, telephone, gender });
