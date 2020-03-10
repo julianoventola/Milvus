@@ -51,7 +51,7 @@ class UserController {
     await MailModel.create({
       user_id: id,
       user_name: name,
-      mail_type: 'Registry Mail',
+      mail_type: 'Email de cadastro',
       send_status: true,
     });
 
