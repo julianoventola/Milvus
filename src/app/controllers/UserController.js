@@ -1,6 +1,8 @@
 import * as Yup from 'yup';
 import User from '../models/User';
 
+import Mail from '../../services/Mail';
+
 class UserController {
   // List all users
   async index(req, res) {
@@ -38,6 +40,13 @@ class UserController {
     }
 
     const { id, name, email, telephone, gender } = await User.create(req.body);
+
+    await Mail.sendMail({
+      to: `${name} <${email}>`,
+      subject: 'Bem vindo - Milvus',
+      text: `${name}, você foi cadastrado com sucesso!`,
+    });
+
     return res.json({ id, name, email, telephone, gender });
   }
 
